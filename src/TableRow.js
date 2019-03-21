@@ -3,16 +3,27 @@ import './style.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
 class TableRow extends Component {
-  // constructor(props){
-  //   super(props);
+  constructor(props){
+    super(props);
 
-  // }
+  }
 
   // getUser(userId){
   //   return this.props.users.find( (user) => user.id === userId );
   // }
 
   //name, leasee, status, notes
+
+  // getUserById = (userId) =>  { this.props.users.find( (user) => user.id === userId ) }
+
+  // getUserIdByName = (name) => {
+  //   let result = this.props.users.find((user) => (user.first + ' ' + user.last) === name);
+  //   return result }
+
+  // renderUser = (userId) => {
+  //   let user = this.getUserById(userId);
+  //   return user.first + ' ' + user.last;
+  // }
 
   render() {
     return (

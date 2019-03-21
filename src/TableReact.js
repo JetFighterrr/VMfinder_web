@@ -72,9 +72,10 @@ class TableReact extends Component {
   
   rowIsSelected(id){
     if ( this.state.rowSelectedId > -1 ) {
-      if ( this.state.rowSelectedId === id + (this.state.currentPage - 1) * 10 ) {
+      if ( this.state.rowSelectedId === id ) {
         this.setState({
          // rowSelected: false,
+          rowSelectedId: -1,
           selectedVm: this.returnEmptyVm(),
         });
       }    
@@ -131,7 +132,7 @@ class TableReact extends Component {
 render() {
     return (
       <div  className = "table-responsive">
-        <ButtonGroup onlyNewRow = {!this.state.rowSelected} addModal = {this.handleChange}/>
+        <Navbar>
           <Navbar.Brand href="#home"><strong>VM Finder</strong></Navbar.Brand>
           <Nav className="mr-auto">
           <Nav.Link href="#home"></Nav.Link>
