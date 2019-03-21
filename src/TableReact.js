@@ -13,7 +13,6 @@ import Nav from 'react-bootstrap/Nav';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
-//import { Jumbotron } from 'react-bootstrap';
 
 class TableReact extends Component {
   constructor(props){
@@ -33,7 +32,6 @@ class TableReact extends Component {
     this.getUserById = this.getUserById.bind(this);
     this.getUserByName = this.getUserByName.bind(this);
     this.state = {
-      //rowSelected: false,
       rowSelectedId: -1,
       showModalNew: false,
       showModalEdit: false,
@@ -129,9 +127,11 @@ class TableReact extends Component {
   }
 
   pageNavigation(){
-    const maxPages = Math.min(Math.ceil(this.props.maxNumber / 10) , 10);
-    const pages = Array(maxPages);
-    for(let i = 0; i < maxPages; i++) { pages[i] = i + 1; }
+    const maxPages = Math.max(1, Math.min(Math.ceil(this.props.maxNumber / 10) , 10));
+    //const pages = Array( Math.max(1, maxPages) );
+    const pages = [];
+    console.log(maxPages);
+    for(let i = 0; i < maxPages; i++) { pages[i] = (i + 1); }
     return(
       <ButtonGroup>
         <Button variant="outline-primary" onClick ={() => this.pageDecrease()} disabled = {this.state.currentPage <= 1}>Previous</Button>

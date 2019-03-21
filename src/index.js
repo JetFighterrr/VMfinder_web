@@ -3,6 +3,9 @@ import {render} from 'react-dom';
 import {TableReact} from './TableReact.js';
 import 'bootstrap/dist/css/bootstrap.css';
 import './style.css';
+import { Row } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
 
 class App extends Component {
   constructor(props){
@@ -11,40 +14,40 @@ class App extends Component {
     this.deleteVm = this.deleteVm.bind(this);
     this.state = {
       Vms:[
-              {name:'Ivan', leaseeId: '123', status: 'Busy', notes: 'Automation'},
-              {name:'Alex', leaseeId: '987', status: 'Available', notes: 'Automation'},
-              {name:'Peter', leaseeId: '543', status: 'Available', notes: 'Automation'},
-              {name:'Ara', leaseeId: '789', status: 'Available', notes: 'Automation'},
-              {name:'Ivan', leaseeId: '123', status: 'Busy', notes: 'Manual'},
+              {name:'o-w10-a6', leaseeId: '123', status: 'Busy', notes: 'Automation'},
+              {name:'Alex-3', leaseeId: '987', status: 'Available', notes: 'Automation'},
+              {name:'o-cob01-w10-2', leaseeId: '543', status: 'Available', notes: 'Automation'},
+              {name:'Ara-2', leaseeId: '789', status: 'Available', notes: 'Automation'},
+              {name:'o-cob02-w7-2', leaseeId: '123', status: 'Busy', notes: 'Manual'},
+              {name:'Alex-4', leaseeId: '987', status: 'Available', notes: 'Manual'},
+              {name:'o-rest-w10-1', leaseeId: '543', status: 'Available', notes: 'Not clean'},
+              {name:'o-rest-2k16-1', leaseeId: '789', status: 'Available', notes: 'Manual'},
+              {name:'o-cob01-w10-1', leaseeId: '123', status: 'Busy', notes: 'Automation'},
+              {name:'o-rest-2k16-2', leaseeId: '987', status: 'Available', notes: 'Automation'},
+              {name:'o-w10-a5', leaseeId: '543', status: 'Available', notes: 'Manual'},
+              {name:'o-w10-a3', leaseeId: '789', status: 'Available', notes: 'Manual'},
+              {name:'Ivan-6', leaseeId: '123', status: 'Available', notes: 'Manual'},
+              {name:'o-rest-w10-2', leaseeId: '987', status: 'Available', notes: 'Manual'},
+              {name:'Peter-9', leaseeId: '543', status: 'Available', notes: 'Manual'},
+              {name:'Ara-8', leaseeId: '789', status: 'Available', notes: 'Do not use'}, 
+              {name:'Ivan-5', leaseeId: '123', status: 'Busy', notes: 'Need Snapshot update'},
+              {name:'Alex-3', leaseeId: '987', status: 'Available', notes: 'Manual'},
+              {name:'o-rest-w10-4', leaseeId: '543', status: 'Available', notes: 'Manual'},
+              {name:'Ara-6', leaseeId: '789', status: 'Busy', notes: 'Manual'},                                                       
+              {name:'o-w10-a1', leaseeId: '456', status: 'Busy', notes: 'Manual'},
               {name:'Alex', leaseeId: '987', status: 'Available', notes: 'Manual'},
-              {name:'Peter', leaseeId: '543', status: 'Available', notes: 'Not clean'},
-              {name:'Ara', leaseeId: '789', status: 'Available', notes: 'Manual'},
-              {name:'Ivan', leaseeId: '123', status: 'Busy', notes: 'Automation'},
-              {name:'Alex', leaseeId: '987', status: 'Available', notes: 'Automation'},
-              {name:'Peter', leaseeId: '543', status: 'Available', notes: 'Manual'},
-              {name:'Ara', leaseeId: '789', status: 'Available', notes: 'Manual'},
-              {name:'Ivan', leaseeId: '123', status: 'Available', notes: 'Manual'},
-              {name:'Alex', leaseeId: '987', status: 'Available', notes: 'Manual'},
-              {name:'Peter', leaseeId: '543', status: 'Available', notes: 'Manual'},
-              {name:'Ara', leaseeId: '789', status: 'Available', notes: 'Do not use'}, 
-              {name:'Ivan', leaseeId: '123', status: 'Busy', notes: 'Need Snapshot update'},
-              {name:'Alex', leaseeId: '987', status: 'Available', notes: 'Manual'},
-              {name:'Peter', leaseeId: '543', status: 'Available', notes: 'Manual'},
-              {name:'Ara', leaseeId: '789', status: 'Busy', notes: 'Manual'},                                                       
-              {name:'Ivan', leaseeId: '123', status: 'Busy', notes: 'Manual'},
-              {name:'Alex', leaseeId: '987', status: 'Available', notes: 'Manual'},
-              {name:'Peter', leaseeId: '123', status: 'Available', notes: 'Manual'},
-              {name:'Ara', leaseeId: '789', status: 'Busy', notes: 'Manual'},
-              {name:'Ivan', leaseeId: '123', status: 'Busy', notes: 'Manual'},
+              {name:'o-cob02-w7-2', leaseeId: '123', status: 'Available', notes: 'Manual'},
+              {name:'Ara-2', leaseeId: '789', status: 'Busy', notes: 'Manual'},
+              {name:'Ivan', leaseeId: '456', status: 'Busy', notes: 'Manual'},
               {name:'Alex', leaseeId: '123', status: 'Available', notes: 'Manual'},
-              {name:'Peter', leaseeId: '543', status: 'Available', notes: 'Manual'},
+              {name:'o-rest-w10-3', leaseeId: '543', status: 'Available', notes: 'Manual'},
               {name:'Ara', leaseeId: '789', status: 'Busy', notes: 'Manual'},
               {name:'Ivan', leaseeId: '123', status: 'Busy', notes: 'Manual'},
-              {name:'Alex', leaseeId: '987', status: 'Available', notes: 'Manual'},
-              {name:'Peter', leaseeId: '123', status: 'Available', notes: 'Manual'},
-              {name:'Ara', leaseeId: '789', status: 'Busy', notes: 'Manual'},
-              {name:'Ivan', leaseeId: '123', status: 'Busy', notes: 'Manual'},
-              {name:'Alex', leaseeId: '123', status: 'Available', notes: 'Manual'},
+              {name:'Alex-5', leaseeId: '987', status: 'Available', notes: 'Manual'},
+              {name:'o-rest-w10-5', leaseeId: '456', status: 'Available', notes: 'Manual'},
+              {name:'Ara-4', leaseeId: '789', status: 'Busy', notes: 'Manual'},
+              {name:'Ivan-2', leaseeId: '123', status: 'Busy', notes: 'Manual'},
+              {name:'Alexis', leaseeId: '123', status: 'Available', notes: 'Manual'},
             ],
         users:[
             {first:'Bradley', last: 'Greer', id: '123'},
@@ -52,9 +55,8 @@ class App extends Component {
             {first:'Paul', last: 'Byrd', id: '789'},
             {first:'Michael', last: 'Bruce', id: '987'},
             {first:'Shad', last: 'Decker', id: '543'},
-
-        ]
-
+        ],
+        searchField: '',
       };
   }
 
@@ -68,13 +70,44 @@ class App extends Component {
 
   deleteVm = (id) => { this.setState( { Vms: this.state.Vms.filter( (vm, index) => index !== id ) } ); }
 
+  changeSearchField(value){
+    this.setState({
+        searchField: value || '',
+      });
+  }
+
+  itHasSearchCriteria(singleVm){
+    let localName = singleVm.name;
+    let localNotes = singleVm.notes;
+    let localStatus = singleVm.status;
+    let localSearchCriteria = this.state.searchField;
+    return  localName.toLowerCase().includes( localSearchCriteria.toLowerCase() ) 
+            || localNotes.toLowerCase().includes( localSearchCriteria.toLowerCase() )
+            || localStatus.toLowerCase().includes( localSearchCriteria.toLowerCase() );
+  }
+
   render() {
     return (
       <div className = 'main'>
         <div className = 'fw-background'></div>
         <div className = 'fw-container'>
-          <TableReact Vms = {this.state.Vms} users = {this.state.users} save = {this.saveVm} remove = {this.deleteVm} maxNumber = {this.state.Vms.length} />
+          <TableReact Vms = { this.state.searchField === '' ? this.state.Vms : this.state.Vms.filter( (vm) => this.itHasSearchCriteria(vm) )}
+                      users = {this.state.users} save = {this.saveVm} remove = {this.deleteVm}
+                      maxNumber =  { this.state.searchField === '' ? this.state.Vms.length : this.state.Vms.filter( (vm) => this.itHasSearchCriteria(vm) ).length }
+                      />
         </div>
+        <Form>
+        <Form.Group as={Row} controlId =  "Notes">
+          <Form.Label column sm = "2">
+                Search
+          </Form.Label>
+          <Col sm ="10">
+              <Form.Control type="text" placeholder="Type to Start Search"
+                  value = {this.state.searchField}
+                  onChange={(e)=> this.changeSearchField(e.target.value)}/>
+          </Col>
+          </Form.Group>
+        </Form>
         <div className = 'fw-background-bottom'></div>
       </div>
     );
