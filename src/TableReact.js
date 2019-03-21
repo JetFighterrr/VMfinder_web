@@ -72,15 +72,20 @@ class TableReact extends Component {
  
   pageDecrease = () => {this.setState({ currentPage: this.state.currentPage - 1 });}
 
-  updateCurrentPage = () => { if( this.state.currentPage >= Math.ceil(this.props.maxNumber / 10) ) this.pageDecrease();}
+  updateCurrentPage = () => { 
+    console.log(this.props.maxNumber);
+    console.log(this.state.currentPage);
+    if ( this.state.currentPage > Math.ceil((this.props.maxNumber - 1)/10) ) this.pageDecrease(); 
+  }
+
   
   rowIsSelected(id){
-    if ( this.state.rowSelectedId > -1 ) {
-      if ( this.state.rowSelectedId === id ) {
+    if ( this.state.rowSelectedId > -1  ) {
+      if ( this.state.rowSelectedId === id + (this.state.currentPage - 1) * 10 ) {
         this.setState({
          // rowSelected: false,
           rowSelectedId: -1,
-          selectedVm: this.returnEmptyVm(),
+          selectedVm: this.returnEmptyVm() ,
         });
       }    
       else {
@@ -92,7 +97,7 @@ class TableReact extends Component {
     }
     else{
       this.setState({
-        rowSelectedId: id,
+        rowSelectedId: id + (this.state.currentPage - 1) * 10,
         //rowSelected: true,
         selectedVm: this.props.Vms[id + (this.state.currentPage - 1) * 10],
       });
@@ -116,10 +121,11 @@ class TableReact extends Component {
   }
   
   getClassName(num){
-      if (this.state.rowSelectedId === num + (this.state.currentPage - 1) * 10) {
+    if (this.state.rowSelectedId === num + (this.state.currentPage - 1) * 10) {
         return 'table-primary';
       }
-    return this.props.Vms[num].status === 'Busy' ? 'table-danger' : '';
+    else if (this.props.Vms[num + (this.state.currentPage - 1) * 10].status === 'Busy') return 'table-danger';
+    return '';
   }
 
   pageNavigation(){
@@ -129,7 +135,7 @@ class TableReact extends Component {
     return(
       <ButtonGroup>
         <Button variant="outline-primary" onClick ={() => this.pageDecrease()} disabled = {this.state.currentPage <= 1}>Previous</Button>
-        {pages.map( (num) => <Button variant="" className = { num == this.state.currentPage ? "btn btn-primary" : " btn btn-outline-primary"} onClick = {() => {this.setState({currentPage:num})} }  disabled = {num == this.state.currentPage }>{num}</Button> ) }
+        {pages.map( (num) => <Button variant={ num == this.state.currentPage ? "primary" : "outline-primary"} onClick = {() => {this.setState({currentPage:num})} }  disabled = {num == this.state.currentPage }>{num}</Button> ) }
         <Button variant="outline-primary" onClick ={() => this.pageIncrease()} disabled = { this.state.currentPage * 10 >= this.props.maxNumber}>Next</Button>
       </ButtonGroup>
     );
@@ -140,9 +146,7 @@ render() {
       <div  className = "table-responsive">
         <Navbar>
           <Navbar.Brand href="#home"><strong>VM Finder</strong></Navbar.Brand>
-          <Nav className="mr-auto">
-          <Nav.Link href="#home"></Nav.Link>
-          </Nav>
+          <Nav className="mr-auto"/>
           <ButtonGroupCustom onlyNewRow = { this.state.rowSelectedId < 0 } addModal = {this.handleChange}/>
         </Navbar>
         <Table responsive hover>
@@ -157,7 +161,7 @@ render() {
               .map( 
                 (singleVm, position) => 
                 <TableRow Vm = {singleVm}  selectThisRow = {this.rowIsSelected} givenClassName = {this.getClassName(position)} 
-                id = {position} key = {position}  user = {this.renderUser(singleVm.leaseeId)}/>
+                id = {position} key = {position} user = {this.renderUser(singleVm.leaseeId)}/>
                  ) 
             }
           </tbody>
