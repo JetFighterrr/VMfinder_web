@@ -16,6 +16,7 @@ class ModalEdit extends Component {
         super(props);
         this.state = {
             errorState: false,
+            user: "Select User",
         }
     }
     
@@ -51,9 +52,12 @@ class ModalEdit extends Component {
 
     changeInputLeasee(value){
         console.log(value);
+        this.setState({
+            user: value,
+        });
         this.props.changeSelectedVM( {
                 name: this.props.selectedVm.name,
-                leaseeId: value,
+                leaseeId: this.props.getUserByName(value).id,
                 status: this.props.selectedVm.status,
                 notes: this.props.selectedVm.notes,
             }
@@ -110,14 +114,9 @@ class ModalEdit extends Component {
                             {/*  <Form.Control type="text" placeholder="Choose Leasee"               ></Form.Control>                            </Col>  */}
                             <Col sm ="10">
                                 <Form.Control as="select"
-                                    value = {this.props.selectedVm.leaseeId}
+                                    value = {this.state.user}
                                     onChange={(e)=> this.changeInputLeasee(e.target.value)}>
-                                    
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                    {this.props.users.map((user) => <option key = {user.id} id  = {user.id} value = {user.first + ' ' + user.last}> {user.first + ' ' + user.last} </option>)}
                                 </Form.Control>
                             </Col>
                         </Form.Group>

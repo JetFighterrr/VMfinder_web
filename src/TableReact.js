@@ -25,11 +25,13 @@ class TableReact extends Component {
     this.handleChangeDelete = this.handleChangeDelete.bind(this);
     this.pageDecrease = this.pageDecrease.bind(this);
     this.pageIncrease = this.pageIncrease.bind(this);
+    this.updateCurrentPage = this.updateCurrentPage.bind(this);
     this.pageNavigation = this.pageNavigation.bind(this);
     this.changeSelectedVM = this.changeSelectedVM.bind(this);
     this.returnEmptyVm = this.returnEmptyVm.bind(this);
     this.renderUser = this.renderUser.bind(this);
-    this.getUser = this.getUser.bind(this);
+    this.getUserById = this.getUserById.bind(this);
+    this.getUserByName = this.getUserByName.bind(this);
     this.state = {
       //rowSelected: false,
       rowSelectedId: -1,
@@ -69,6 +71,8 @@ class TableReact extends Component {
   pageIncrease = () => {this.setState({ currentPage: this.state.currentPage + 1 });}
  
   pageDecrease = () => {this.setState({ currentPage: this.state.currentPage - 1 });}
+
+  updateCurrentPage = () => { if( this.state.currentPage >= Math.ceil(this.props.maxNumber / 10) ) this.pageDecrease();}
   
   rowIsSelected(id){
     if ( this.state.rowSelectedId > -1 ) {
@@ -88,7 +92,7 @@ class TableReact extends Component {
     }
     else{
       this.setState({
-        rowSelectedId: id + (this.state.currentPage - 1) * 10,
+        rowSelectedId: id,
         //rowSelected: true,
         selectedVm: this.props.Vms[id + (this.state.currentPage - 1) * 10],
       });
@@ -102,10 +106,12 @@ class TableReact extends Component {
     notes:'',
   }}
 
-  getUser = (userId) =>  { return  this.props.users.find( (user) => user.id === userId ) }
+  getUserById = (userId) =>  { return  this.props.users.find( (user) => user.id === userId ) }
+
+  getUserByName = (name) =>  { return  this.props.users.find( (user) => ( user.first + ' ' + user.last) === name ) }
 
   renderUser = (userId) => {
-    let user = this.getUser(userId);
+    let user = this.getUserById(userId);
     return user.first + ' ' + user.last;
   }
   
@@ -124,7 +130,7 @@ class TableReact extends Component {
       <ButtonGroup>
         <Button variant="outline-primary" onClick ={() => this.pageDecrease()} disabled = {this.state.currentPage <= 1}>Previous</Button>
         {pages.map( (num) => <Button variant="" className = { num == this.state.currentPage ? "btn btn-primary" : " btn btn-outline-primary"} onClick = {() => {this.setState({currentPage:num})} }  disabled = {num == this.state.currentPage }>{num}</Button> ) }
-        <Button variant="outline-primary" onClick ={() => this.pageIncrease()} disabled = { this.state.currentPage * 10 > this.props.maxNumber}>Next</Button>
+        <Button variant="outline-primary" onClick ={() => this.pageIncrease()} disabled = { this.state.currentPage * 10 >= this.props.maxNumber}>Next</Button>
       </ButtonGroup>
     );
   }
@@ -137,7 +143,7 @@ render() {
           <Nav className="mr-auto">
           <Nav.Link href="#home"></Nav.Link>
           </Nav>
-          <ButtonGroupCustom onlyNewRow = {!this.state.rowSelected} addModal = {this.handleChange}/>
+          <ButtonGroupCustom onlyNewRow = { this.state.rowSelectedId < 0 } addModal = {this.handleChange}/>
         </Navbar>
         <Table responsive hover>
           <thead>
@@ -161,8 +167,10 @@ render() {
         <ModalEdit showHere = {this.state.showModalEdit} operateModal = {this.handleChangeEdit} 
                     editVm = {this.props.save} changeSelectedVM = {this.changeSelectedVM} 
                     selectedVm = {this.state.selectedVm} selectedVmId = {this.state.rowSelectedId}
-                    users = {this.props.users}/>
-        <ModalDelete showHere = {this.state.showModalDelete} operateModal = {this.handleChangeDelete} deleteVm = {this.props.remove} selectedVmId = {this.state.rowSelectedId}/>
+                    users = {this.props.users} getUserByName = {this.getUserByName}/>
+        <ModalDelete  showHere = {this.state.showModalDelete} operateModal = {this.handleChangeDelete} 
+                      deleteVm = {this.props.remove} selectedVmId = {this.state.rowSelectedId}
+                      updateCurrentPage = {this.updateCurrentPage}/>
       </div>
 
     );

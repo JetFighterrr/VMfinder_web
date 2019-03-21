@@ -10,6 +10,7 @@ class ModalDelete extends Component {
     deleteVmButton(){
         this.props.deleteVm(this.props.selectedVmId);
         this.props.operateModal();
+        this.props.updateCurrentPage();
     }
 
     render() {
