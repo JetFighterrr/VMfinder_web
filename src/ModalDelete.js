@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import './style.css';
 import 'bootstrap/dist/css/bootstrap.css';
-const ReactBootstrap = require("react-bootstrap");
-
-var Button = ReactBootstrap.Button
-var Modal = ReactBootstrap.Modal;
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal'
 
 class ModalDelete extends Component {
     deleteVmButton(){

@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import './style.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import { Row } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
-import { Row } from 'react-bootstrap';
-//import {TableReact} from './TableReact.js';
-const ReactBootstrap = require("react-bootstrap");
-
-var Button = ReactBootstrap.Button;
-var Modal = ReactBootstrap.Modal;
-//var Form = ReactBootstrap.Form;
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal'
 
 class ModalEdit extends Component {
     constructor(props){
@@ -84,9 +80,6 @@ class ModalEdit extends Component {
         );
     }
 
-
-
-//name, leaseeId, status, notes
     render() {
         return (
             <div>
@@ -111,7 +104,6 @@ class ModalEdit extends Component {
                             <Form.Label column sm = "2">
                                 Leasee 
                             </Form.Label>
-                            {/*  <Form.Control type="text" placeholder="Choose Leasee"               ></Form.Control>                            </Col>  */}
                             <Col sm ="10">
                                 <Form.Control as="select"
                                     value = {this.state.user}

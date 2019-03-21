@@ -13,7 +13,7 @@ import Nav from 'react-bootstrap/Nav';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
-import { Jumbotron } from 'react-bootstrap';
+//import { Jumbotron } from 'react-bootstrap';
 
 class TableReact extends Component {
   constructor(props){
@@ -135,7 +135,7 @@ class TableReact extends Component {
     return(
       <ButtonGroup>
         <Button variant="outline-primary" onClick ={() => this.pageDecrease()} disabled = {this.state.currentPage <= 1}>Previous</Button>
-        {pages.map( (num) => <Button variant={ num == this.state.currentPage ? "primary" : "outline-primary"} onClick = {() => {this.setState({currentPage:num})} }  disabled = {num == this.state.currentPage }>{num}</Button> ) }
+        {pages.map( (num) => <Button variant={ num === this.state.currentPage ? "primary" : "outline-primary"} onClick = {() => {this.setState({currentPage:num})} }  disabled = {num === this.state.currentPage }>{num}</Button> ) }
         <Button variant="outline-primary" onClick ={() => this.pageIncrease()} disabled = { this.state.currentPage * 10 >= this.props.maxNumber}>Next</Button>
       </ButtonGroup>
     );
@@ -167,11 +167,15 @@ render() {
           </tbody>
         </Table>
         {this.pageNavigation()}
-        <ModalNew showHere = {this.state.showModalNew} operateModal = {this.handleChangeNew} createNewVm = {this.props.save}/>
-        <ModalEdit showHere = {this.state.showModalEdit} operateModal = {this.handleChangeEdit} 
-                    editVm = {this.props.save} changeSelectedVM = {this.changeSelectedVM} 
-                    selectedVm = {this.state.selectedVm} selectedVmId = {this.state.rowSelectedId}
-                    users = {this.props.users} getUserByName = {this.getUserByName}/>
+        <ModalNew   showHere = {this.state.showModalNew} operateModal = {this.handleChangeNew} 
+                    createNewVm = {this.props.save} users = {this.props.users} 
+                    getUserByName = {this.getUserByName}/>
+
+        <ModalEdit  showHere = {this.state.showModalEdit} operateModal = {this.handleChangeEdit} 
+                    editVm = {this.props.save} users = {this.props.users}
+                    changeSelectedVM = {this.changeSelectedVM} selectedVm = {this.state.selectedVm}
+                    selectedVmId = {this.state.rowSelectedId} getUserByName = {this.getUserByName}/>
+
         <ModalDelete  showHere = {this.state.showModalDelete} operateModal = {this.handleChangeDelete} 
                       deleteVm = {this.props.remove} selectedVmId = {this.state.rowSelectedId}
                       updateCurrentPage = {this.updateCurrentPage}/>

@@ -3,7 +3,6 @@ import './style.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
 class TableHead extends Component {
-//name, leasee, status, notes
    render() {
     return (
       <tr>
