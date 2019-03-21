@@ -7,6 +7,9 @@ import {ModalNew} from './ModalNew.js';
 import {ModalEdit} from './ModalEdit.js';
 import {ModalDelete} from './ModalDelete.js';
 import {ButtonGroupCustom} from './ButtonGroupCustom.js';
+import { Row } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -146,7 +149,19 @@ render() {
       <div  className = "table-responsive">
         <Navbar>
           <Navbar.Brand><strong>VM Finder</strong></Navbar.Brand>
-          <Nav className="mr-auto"/>
+          {/* <Nav className="mr-auto"/> */}
+          <Form>
+            <Form.Group as={Row} controlId =  "Notes">
+              <Form.Label column sm = "2">
+                    Search
+              </Form.Label>
+              <Col sm ="10">
+                  <Form.Control type="text" 
+                      value = {this.props.searchField}
+                      onChange={(e)=> this.props.changeSearchField(e.target.value)}/>
+              </Col>
+              </Form.Group>
+            </Form>
           <ButtonGroupCustom onlyNewRow = { this.state.rowSelectedId < 0 } addModal = {this.handleChange}/>
         </Navbar>
         <Table responsive hover>

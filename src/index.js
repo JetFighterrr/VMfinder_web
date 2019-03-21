@@ -3,9 +3,7 @@ import {render} from 'react-dom';
 import {TableReact} from './TableReact.js';
 import 'bootstrap/dist/css/bootstrap.css';
 import './style.css';
-import { Row } from 'react-bootstrap';
-import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/Col';
+
 
 class App extends Component {
   constructor(props){
@@ -94,9 +92,10 @@ class App extends Component {
           <TableReact Vms = { this.state.searchField === '' ? this.state.Vms : this.state.Vms.filter( (vm) => this.itHasSearchCriteria(vm) )}
                       users = {this.state.users} save = {this.saveVm} remove = {this.deleteVm}
                       maxNumber =  { this.state.searchField === '' ? this.state.Vms.length : this.state.Vms.filter( (vm) => this.itHasSearchCriteria(vm) ).length }
+                      searchField = {this.searchField} changeSearchField = {this.changeSearchField}
                       />
         </div>
-        <Form>
+        {/* <Form>
         <Form.Group as={Row} controlId =  "Notes">
           <Form.Label column sm = "2">
                 Search
@@ -107,7 +106,7 @@ class App extends Component {
                   onChange={(e)=> this.changeSearchField(e.target.value)}/>
           </Col>
           </Form.Group>
-        </Form>
+        </Form> */}
         <div className = 'fw-background-bottom'></div>
       </div>
     );
