@@ -27,8 +27,11 @@ class TableReact extends Component {
     this.pageIncrease = this.pageIncrease.bind(this);
     this.pageNavigation = this.pageNavigation.bind(this);
     this.changeSelectedVM = this.changeSelectedVM.bind(this);
+    this.returnEmptyVm = this.returnEmptyVm.bind(this);
+    this.renderUser = this.renderUser.bind(this);
+    this.getUser = this.getUser.bind(this);
     this.state = {
-      rowSelected: false,
+      //rowSelected: false,
       rowSelectedId: -1,
       showModalNew: false,
       showModalEdit: false,
@@ -36,7 +39,7 @@ class TableReact extends Component {
       currentPage:1,
       selectedVm: {
         name:'',
-        leasee:'',
+        leaseeId:'',
         status:'',
         notes:'',
       },
@@ -46,50 +49,33 @@ class TableReact extends Component {
   handleChange(operation){
     switch(operation){
       case 'New':  this.handleChangeNew();
-                break;
+      break;
       case 'Edit': this.handleChangeEdit();
-                break;
+      break;
       case 'Delete': this.handleChangeDelete();
-                break;
+      break;
       default: console.log('Sorry, we found ' + operation + ' is not supported');
     }
   }
-
-  changeSelectedVM(childVm){
-    this.setState({
-      selectedVm: childVm,
-    });
-  }
-
-  handleChangeNew(){
-    this.setState({
-      showModalNew: !this.state.showModalNew,
-    });
-  }
-
-  handleChangeEdit(){
-    this.setState({
-      showModalEdit: !this.state.showModalEdit,
-    });
-  }
-
-  handleChangeDelete(){
-    this.setState({
-      showModalDelete: !this.state.showModalDelete,
-    });
-  }
-
+  
+  changeSelectedVM = (childVm) => { this.setState({selectedVm: childVm}); }
+  
+  handleChangeNew = () => { this.setState({showModalNew: !this.state.showModalNew}); }
+  
+  handleChangeEdit = () => { this.setState({showModalEdit: !this.state.showModalEdit}); }
+  
+  handleChangeDelete = () => { this.setState({showModalDelete: !this.state.showModalDelete});  }
+  
+  pageIncrease = () => {this.setState({ currentPage: this.state.currentPage + 1 });}
+ 
+  pageDecrease = () => {this.setState({ currentPage: this.state.currentPage - 1 });}
+  
   rowIsSelected(id){
-    if ( this.state.rowSelected ) {
+    if ( this.state.rowSelectedId > -1 ) {
       if ( this.state.rowSelectedId === id + (this.state.currentPage - 1) * 10 ) {
         this.setState({
-          rowSelected: false,
-          selectedVm: {
-            name:'',
-            leasee:'',
-            status:'',
-            notes:'',
-          },
+         // rowSelected: false,
+          selectedVm: this.returnEmptyVm(),
         });
       }    
       else {
@@ -102,24 +88,32 @@ class TableReact extends Component {
     else{
       this.setState({
         rowSelectedId: id + (this.state.currentPage - 1) * 10,
-        rowSelected: true,
+        //rowSelected: true,
         selectedVm: this.props.Vms[id + (this.state.currentPage - 1) * 10],
       });
     }
   }
+
+  returnEmptyVm = () => { return {
+    name:'',
+    leaseeId:'',
+    status:'',
+    notes:'',
+  }}
+
+  getUser = (userId) =>  { return  this.props.users.find( (user) => user.id === userId ) }
+
+  renderUser = (userId) => {
+    let user = this.getUser(userId);
+    return user.first + ' ' + user.last;
+  }
   
   getClassName(num){
-    if (this.state.rowSelected) {
       if (this.state.rowSelectedId === num + (this.state.currentPage - 1) * 10) {
         return 'table-primary';
       }
-    }
     return this.props.Vms[num].status === 'Busy' ? 'table-danger' : '';
   }
-
-  pageIncrease = () => {this.setState({ currentPage: this.state.currentPage + 1 });}
-
-  pageDecrease = () => {this.setState({ currentPage: this.state.currentPage - 1 });}
 
   pageNavigation(){
     const maxPages = Math.min(Math.ceil(this.props.maxNumber / 10) , 10);
@@ -137,7 +131,7 @@ class TableReact extends Component {
 render() {
     return (
       <div  className = "table-responsive">
-        <Navbar expand="lg">
+        <ButtonGroup onlyNewRow = {!this.state.rowSelected} addModal = {this.handleChange}/>
           <Navbar.Brand href="#home"><strong>VM Finder</strong></Navbar.Brand>
           <Nav className="mr-auto">
           <Nav.Link href="#home"></Nav.Link>
@@ -156,7 +150,7 @@ render() {
               .map( 
                 (singleVm, position) => 
                 <TableRow Vm = {singleVm}  selectThisRow = {this.rowIsSelected} givenClassName = {this.getClassName(position)} 
-                 id = {position} key = {position}/>
+                id = {position} key = {position}  user = {this.renderUser(singleVm.leaseeId)}/>
                  ) 
             }
           </tbody>

@@ -3,7 +3,17 @@ import './style.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
 class TableRow extends Component {
+  // constructor(props){
+  //   super(props);
+
+  // }
+
+  // getUser(userId){
+  //   return this.props.users.find( (user) => user.id === userId );
+  // }
+
   //name, leasee, status, notes
+
   render() {
     return (
       <tr 
@@ -11,7 +21,7 @@ class TableRow extends Component {
       className = {this.props.givenClassName}
       >
         <th scope='row'>{this.props.Vm.name}</th>
-        <td>{this.props.Vm.leasee}</td>
+        <td>{this.props.user}</td>
         <td>{this.props.Vm.status}</td>
         <td>{this.props.Vm.notes}</td>
         <td>{this.props.id}</td>
