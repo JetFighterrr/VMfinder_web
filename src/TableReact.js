@@ -8,10 +8,8 @@ import {ModalEdit} from './ModalEdit.js';
 import {ModalDelete} from './ModalDelete.js';
 import {ButtonGroupCustom} from './ButtonGroupCustom.js';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
-import { Row } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
-
 import Navbar from 'react-bootstrap/Navbar';
 import InputGroup from 'react-bootstrap/InputGroup';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -136,7 +134,6 @@ class TableReact extends Component {
 
   pageNavigation(){
     const maxPages = Math.max(1, Math.min(Math.ceil(this.props.maxNumber / 10) , 10));
-    //const pages = Array( Math.max(1, maxPages) );
     const pages = [];
     console.log(maxPages);
     for(let i = 0; i < maxPages; i++) { pages[i] = (i + 1); }
@@ -144,9 +141,9 @@ class TableReact extends Component {
       
       <ButtonToolbar className="mb-3" aria-label="Toolbar with Button groups">
       <InputGroup>
-        <InputGroup.Prepend>
-          <InputGroup.Text id="Search">Search</InputGroup.Text>
-        </InputGroup.Prepend>
+             <Form.Label column sm = "3">
+                   Search
+             </Form.Label>
         <Form.Control type="text" 
             value = {this.props.searchField}
             onChange={(e)=> this.updateSearchField(e.target.value)}/>
@@ -158,21 +155,6 @@ class TableReact extends Component {
         <Button variant="outline-primary" onClick ={() => this.pageIncrease()} disabled = { this.state.currentPage * 10 >= this.props.maxNumber}>Next</Button>
       </ButtonGroup>
     </ButtonToolbar>
-        //  <FormControl
-        //   type="text"
-          
-        //   aria-label="Input group example"
-        //   aria-describedby="btnGroupAddon"
-        // 
-    // <Form>
-    //   <Form.Group as={Row} controlId = "Notes">
-    //     <Form.Label column sm = "2">
-    //           Search
-    //     </Form.Label>
-    //     <Col sm ="10">
-    //     </Col>
-    //     </Form.Group>
-    //   </Form>
     );
   }
   

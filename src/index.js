@@ -96,18 +96,6 @@ class App extends Component {
                       searchField = {this.state.searchField} changeSearchField = {this.changeSearchField}
                       />
         </div>
-        {/* <Form>
-        <Form.Group as={Row} controlId =  "Notes">
-          <Form.Label column sm = "2">
-                Search
-          </Form.Label>
-          <Col sm ="10">
-              <Form.Control type="text" placeholder="Type to Start Search"
-                  value = {this.state.searchField}
-                  onChange={(e)=> this.changeSearchField(e.target.value)}/>
-          </Col>
-          </Form.Group>
-        </Form> */}
         <div className = 'fw-background-bottom'></div>
       </div>
     );
