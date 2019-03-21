@@ -72,10 +72,11 @@ class App extends Component {
   render() {
     return (
       <div className = 'main'>
-        <h1 className="headTytle">VM Finder</h1>
-        <div>
+        <div className = 'fw-background'></div>
+        <div className = 'fw-container'>
           <TableReact Vms = {this.state.Vms} save = {this.saveUser} remove = {this.deleteUser} maxNumber = {this.state.Vms.length} />
         </div>
+        <div className = 'fw-background-bottom'></div>
       </div>
     );
   }

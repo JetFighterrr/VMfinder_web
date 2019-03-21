@@ -6,7 +6,14 @@ import {TableHead} from './TableHead.js';
 import {ModalNew} from './ModalNew.js';
 import {ModalEdit} from './ModalEdit.js';
 import {ModalDelete} from './ModalDelete.js';
-import {ButtonGroup} from './ButtonGroup.js';
+import {ButtonGroupCustom} from './ButtonGroupCustom.js';
+
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Button from 'react-bootstrap/Button';
+import Table from 'react-bootstrap/Table';
+import { Jumbotron } from 'react-bootstrap';
 
 class TableReact extends Component {
   constructor(props){
@@ -107,7 +114,7 @@ class TableReact extends Component {
         return 'table-primary';
       }
     }
-    return this.props.Vms[num].status === 'Busy' ? 'table-danger' : 'table-success';
+    return this.props.Vms[num].status === 'Busy' ? 'table-danger' : '';
   }
 
   pageIncrease = () => {this.setState({ currentPage: this.state.currentPage + 1 });}
@@ -119,23 +126,29 @@ class TableReact extends Component {
     const pages = Array(maxPages);
     for(let i = 0; i < maxPages; i++) { pages[i] = i + 1; }
     return(
-      <div className="btn-group mr-2" role="group" aria-label="First group">
-        <button type="button" className = "btn btn-outline-primary" onClick ={() => this.pageDecrease()} disabled = {this.state.currentPage <= 1}>Previous</button>
-        {pages.map( (num) => <button type="button" className = { num == this.state.currentPage ? "btn btn-primary" : " btn btn-outline-primary"} onClick = {() => {this.setState({currentPage:num})} } >{num}</button> ) }
-        <button type="button" className = "btn btn-outline-primary" onClick ={() => this.pageIncrease()} disabled = { this.state.currentPage * 10 > this.props.maxNumber}>Next</button>
-      </div>
+      <ButtonGroup>
+        <Button variant="outline-primary" onClick ={() => this.pageDecrease()} disabled = {this.state.currentPage <= 1}>Previous</Button>
+        {pages.map( (num) => <Button variant="" className = { num == this.state.currentPage ? "btn btn-primary" : " btn btn-outline-primary"} onClick = {() => {this.setState({currentPage:num})} }  disabled = {num == this.state.currentPage }>{num}</Button> ) }
+        <Button variant="outline-primary" onClick ={() => this.pageIncrease()} disabled = { this.state.currentPage * 10 > this.props.maxNumber}>Next</Button>
+      </ButtonGroup>
     );
   }
   
 render() {
     return (
       <div  className = "table-responsive">
-        <ButtonGroup onlyNewRow = {!this.state.rowSelected} addModal = {this.handleChange}/>
-        <table className="table table-hover responsive">
-          <thead className = 'thead-dark'>
+        <Navbar expand="lg">
+          <Navbar.Brand href="#home"><strong>VM Finder</strong></Navbar.Brand>
+          <Nav className="mr-auto">
+          <Nav.Link href="#home"></Nav.Link>
+          </Nav>
+          <ButtonGroupCustom onlyNewRow = {!this.state.rowSelected} addModal = {this.handleChange}/>
+        </Navbar>
+        <Table responsive hover>
+          <thead>
             <TableHead/>
           </thead>
-          <tfoot className = 'thead-dark'>
+          <tfoot>
             <TableHead/>
           </tfoot>
           <tbody>
@@ -147,13 +160,13 @@ render() {
                  ) 
             }
           </tbody>
-        </table>
+        </Table>
         {this.pageNavigation()}
         <ModalNew showHere = {this.state.showModalNew} operateModal = {this.handleChangeNew} createNewVm = {this.props.save}/>
         <ModalEdit showHere = {this.state.showModalEdit} operateModal = {this.handleChangeEdit} editVm = {this.props.save} changeSelectedVM = {this.changeSelectedVM} selectedVm = {this.state.selectedVm} selectedVmId = {this.state.rowSelectedId}/>
         <ModalDelete showHere = {this.state.showModalDelete} operateModal = {this.handleChangeDelete} deleteVm = {this.props.remove} selectedVmId = {this.state.rowSelectedId}/>
-        <div>{this.state.selectedVm.name}</div>
       </div>
+
     );
   }
 }
