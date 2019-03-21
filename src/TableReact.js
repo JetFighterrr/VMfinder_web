@@ -7,12 +7,13 @@ import {ModalNew} from './ModalNew.js';
 import {ModalEdit} from './ModalEdit.js';
 import {ModalDelete} from './ModalDelete.js';
 import {ButtonGroupCustom} from './ButtonGroupCustom.js';
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import { Row } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/Col';
+import Nav from 'react-bootstrap/Nav';
 
 import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
+import InputGroup from 'react-bootstrap/InputGroup';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
@@ -129,6 +130,10 @@ class TableReact extends Component {
     return '';
   }
 
+  updateSearchField(value){
+    this.props.changeSearchField(value);
+  }
+
   pageNavigation(){
     const maxPages = Math.max(1, Math.min(Math.ceil(this.props.maxNumber / 10) , 10));
     //const pages = Array( Math.max(1, maxPages) );
@@ -136,11 +141,38 @@ class TableReact extends Component {
     console.log(maxPages);
     for(let i = 0; i < maxPages; i++) { pages[i] = (i + 1); }
     return(
+      
+      <ButtonToolbar className="mb-3" aria-label="Toolbar with Button groups">
+      <InputGroup>
+        <InputGroup.Prepend>
+          <InputGroup.Text id="Search">Search</InputGroup.Text>
+        </InputGroup.Prepend>
+        <Form.Control type="text" 
+            value = {this.props.searchField}
+            onChange={(e)=> this.updateSearchField(e.target.value)}/>
+      </InputGroup>
+      <Nav className="mr-auto"/>
       <ButtonGroup>
         <Button variant="outline-primary" onClick ={() => this.pageDecrease()} disabled = {this.state.currentPage <= 1}>Previous</Button>
         {pages.map( (num) => <Button variant={ num === this.state.currentPage ? "primary" : "outline-primary"} onClick = {() => {this.setState({currentPage:num})} }  disabled = {num === this.state.currentPage }>{num}</Button> ) }
         <Button variant="outline-primary" onClick ={() => this.pageIncrease()} disabled = { this.state.currentPage * 10 >= this.props.maxNumber}>Next</Button>
       </ButtonGroup>
+    </ButtonToolbar>
+        //  <FormControl
+        //   type="text"
+          
+        //   aria-label="Input group example"
+        //   aria-describedby="btnGroupAddon"
+        // 
+    // <Form>
+    //   <Form.Group as={Row} controlId = "Notes">
+    //     <Form.Label column sm = "2">
+    //           Search
+    //     </Form.Label>
+    //     <Col sm ="10">
+    //     </Col>
+    //     </Form.Group>
+    //   </Form>
     );
   }
   
@@ -149,19 +181,7 @@ render() {
       <div  className = "table-responsive">
         <Navbar>
           <Navbar.Brand><strong>VM Finder</strong></Navbar.Brand>
-          {/* <Nav className="mr-auto"/> */}
-          <Form>
-            <Form.Group as={Row} controlId =  "Notes">
-              <Form.Label column sm = "2">
-                    Search
-              </Form.Label>
-              <Col sm ="10">
-                  <Form.Control type="text" 
-                      value = {this.props.searchField}
-                      onChange={(e)=> this.props.changeSearchField(e.target.value)}/>
-              </Col>
-              </Form.Group>
-            </Form>
+          <Nav className="mr-auto"/>
           <ButtonGroupCustom onlyNewRow = { this.state.rowSelectedId < 0 } addModal = {this.handleChange}/>
         </Navbar>
         <Table responsive hover>

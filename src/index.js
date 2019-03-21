@@ -10,6 +10,7 @@ class App extends Component {
     super(props);
     this.saveVm = this.saveVm.bind(this);
     this.deleteVm = this.deleteVm.bind(this);
+    this.changeSearchField = this.changeSearchField.bind(this);
     this.state = {
       Vms:[
               {name:'o-w10-a6', leaseeId: '123', status: 'Busy', notes: 'Automation'},
@@ -92,7 +93,7 @@ class App extends Component {
           <TableReact Vms = { this.state.searchField === '' ? this.state.Vms : this.state.Vms.filter( (vm) => this.itHasSearchCriteria(vm) )}
                       users = {this.state.users} save = {this.saveVm} remove = {this.deleteVm}
                       maxNumber =  { this.state.searchField === '' ? this.state.Vms.length : this.state.Vms.filter( (vm) => this.itHasSearchCriteria(vm) ).length }
-                      searchField = {this.searchField} changeSearchField = {this.changeSearchField}
+                      searchField = {this.state.searchField} changeSearchField = {this.changeSearchField}
                       />
         </div>
         {/* <Form>
