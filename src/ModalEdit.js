@@ -49,7 +49,8 @@ class ModalEdit extends Component {
         );
     }
 
-    changeInputleaseeId(value){
+    changeInputLeasee(value){
+        console.log(value);
         this.props.changeSelectedVM( {
                 name: this.props.selectedVm.name,
                 leaseeId: value,
@@ -106,10 +107,18 @@ class ModalEdit extends Component {
                             <Form.Label column sm = "2">
                                 Leasee 
                             </Form.Label>
+                            {/*  <Form.Control type="text" placeholder="Choose Leasee"               ></Form.Control>                            </Col>  */}
                             <Col sm ="10">
-                                <Form.Control type="text" placeholder="Choose Leasee"               
+                                <Form.Control as="select"
                                     value = {this.props.selectedVm.leaseeId}
-                                    onChange={(e)=> this.changeInputleaseeId(e.target.value)}/>
+                                    onChange={(e)=> this.changeInputLeasee(e.target.value)}>
+                                    
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </Form.Control>
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} controlId="Status">
@@ -117,9 +126,10 @@ class ModalEdit extends Component {
                                 Status 
                             </Form.Label>
                             <Col sm ="10">
-                                <Form.Control type="text" placeholder="Choose Status"
-                                 value = {this.props.selectedVm.status}
-                                 onChange={(e)=> this.changeInputStatus(e.target.value)}/>
+                                <Form.Control as="select" value = {this.props.selectedVm.status} onChange={(e)=> this.changeInputStatus(e.target.value)}>
+                                    <option>Available</option>
+                                    <option>Busy</option>
+                                </Form.Control>
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} controlId =  "Notes">

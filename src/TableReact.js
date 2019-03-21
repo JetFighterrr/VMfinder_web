@@ -157,7 +157,10 @@ render() {
         </Table>
         {this.pageNavigation()}
         <ModalNew showHere = {this.state.showModalNew} operateModal = {this.handleChangeNew} createNewVm = {this.props.save}/>
-        <ModalEdit showHere = {this.state.showModalEdit} operateModal = {this.handleChangeEdit} editVm = {this.props.save} changeSelectedVM = {this.changeSelectedVM} selectedVm = {this.state.selectedVm} selectedVmId = {this.state.rowSelectedId}/>
+        <ModalEdit showHere = {this.state.showModalEdit} operateModal = {this.handleChangeEdit} 
+                    editVm = {this.props.save} changeSelectedVM = {this.changeSelectedVM} 
+                    selectedVm = {this.state.selectedVm} selectedVmId = {this.state.rowSelectedId}
+                    users = {this.props.users}/>
         <ModalDelete showHere = {this.state.showModalDelete} operateModal = {this.handleChangeDelete} deleteVm = {this.props.remove} selectedVmId = {this.state.rowSelectedId}/>
       </div>
 
