@@ -12,7 +12,7 @@ class ModalNew extends Component {
         super(props);
         this.state = {
             name:'',
-            user:'Select User',
+            user:'Paul Byrd',
             status:'',
             notes:'',
             errorState: false,
@@ -96,8 +96,8 @@ class ModalNew extends Component {
                                 <Form.Control as="select"
                                     value = {this.state.status} 
                                     onChange={(e)=> this.changeInputStatus(e.target.value)}>
-                                    <option>Available</option>
-                                    <option>Busy</option>
+                                    <option value = 'Available'>Available</option>
+                                    <option value = 'Busy'>Busy</option>
                                 </Form.Control>
                             </Col>
                         </Form.Group>
