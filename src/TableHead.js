@@ -11,7 +11,6 @@ class TableHead extends Component {
             <th scope="col">Leasee</th>
             <th scope="col">Status</th>
             <th scope="col">Notes</th>
-            <th scope="col">ID</th>
       </tr>
      );
     }
