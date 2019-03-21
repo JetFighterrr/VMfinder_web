@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import './style.css';
 import 'bootstrap/dist/css/bootstrap.css';
-const ReactBootstrap = require("react-bootstrap");
-
-var Button = ReactBootstrap.Button;
-var Modal = ReactBootstrap.Modal;
-var Form = ReactBootstrap.Form;
+import { Row } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal'
 
 class ModalNew extends Component {
     constructor(props){
         super(props);
         this.state = {
             name:'',
-            leasee:'',
+            user:'Select User',
             status:'',
             notes:'',
             errorState: false,
@@ -27,7 +27,7 @@ class ModalNew extends Component {
         this.setState( { errorState: false } );
         let currentVm = {
             name: this.state.name,
-            leasee: this.state.leasee,
+            leaseeId: this.props.getUserByName(this.state.user).id,
             status: this.state.status,
             notes: this.state.notes,
         }
@@ -45,7 +45,7 @@ class ModalNew extends Component {
     }
 
     changeInputLeasee(value){
-        this.setState( { leasee: value } );
+        this.setState( { user: value } );
     }
     
     changeInputStatus(value){
@@ -65,39 +65,52 @@ class ModalNew extends Component {
                     </Modal.Header>
                     <Modal.Body>
                         <Form>
-                            <div className = "form-group row">
-                                <label form = "inputName" className = "col-sm-2 col-form-label">Name</label>
-                                <div className = "col-sm-10">
-                                    <input type="text" className = "form-control" id="inputName" placeholder="Type Name Here"               
-                                        value = {this.state.name}
-                                        onChange={(e)=> this.changeInputName(e.target.value)}/>
-                                </div>
-                                {this.errorMessage()}
-                            </div>
-                            <div className = "form-group row">
-                                <label form="Leasee" className = "col-sm-2 col-form-label">Leasee</label>
-                                <div className = "col-sm-10">
-                                    <input type="text" className = "form-control" id="Leasee" placeholder="Choose leasee"
-                                    value = {this.state.leasee}
-                                    onChange={(e)=> this.changeInputLeasee(e.target.value)}/>
-                                </div>
-                            </div>
-                            <div className = "form-group row">
-                                <label form="Status" className = "col-sm-2 col-form-label">Status</label>
-                                <div className = "col-sm-10">
-                                    <input type="text" className = "form-control" id="Status" placeholder="Choose Status"
-                                    value = {this.state.status}
-                                    onChange={(e)=> this.changeInputStatus(e.target.value)}/>
-                                </div>
-                            </div>
-                            <div className = "form-group row">
-                                <label form="Notes" className = "col-sm-2 col-form-label">Notes</label>
-                                <div className = "col-sm-10">
-                                    <input type="text" className = "form-control" id="Notes" placeholder="Type Notes Here"
+                        <Form.Group as={Row} controlId="inputName">
+                            <Form.Label column sm = "2">
+                                Name 
+                            </Form.Label>
+                            <Col sm ="10">
+                                <Form.Control type="text" placeholder="Type Name Here"        
+                                    value = {this.state.name}
+                                    onChange={(e)=> this.changeInputName(e.target.value)}/>
+                            </Col>
+                            {this.errorMessage()}
+                        </Form.Group>
+                        <Form.Group as={Row} controlId="Leasee">
+                            <Form.Label column sm = "2">
+                                Leasee 
+                            </Form.Label>
+                            <Col sm ="10">
+                                <Form.Control as="select"
+                                    value = {this.state.user}
+                                    onChange={(e)=> this.changeInputLeasee(e.target.value)}>
+                                    {this.props.users.map((user) => <option key = {user.id} id  = {user.id} value = {user.first + ' ' + user.last}> {user.first + ' ' + user.last} </option>)}
+                                </Form.Control>
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row} controlId="Status">
+                            <Form.Label column sm = "2">
+                                Status 
+                            </Form.Label>
+                            <Col sm ="10">
+                                <Form.Control as="select"
+                                    value = {this.state.status} 
+                                    onChange={(e)=> this.changeInputStatus(e.target.value)}>
+                                    <option>Available</option>
+                                    <option>Busy</option>
+                                </Form.Control>
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row} controlId =  "Notes">
+                            <Form.Label column sm = "2">
+                                Notes
+                            </Form.Label>
+                            <Col sm ="10">
+                                <Form.Control type="text" placeholder="Type Notes Here"
                                     value = {this.state.notes}
                                     onChange={(e)=> this.changeInputNotes(e.target.value)}/>
-                                </div>
-                            </div>
+                            </Col>
+                        </Form.Group>
                         </Form>
                     </Modal.Body>
                     <Modal.Footer  id="modalNewFooter">

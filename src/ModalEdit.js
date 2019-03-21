@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import './style.css';
 import 'bootstrap/dist/css/bootstrap.css';
-//import {TableReact} from './TableReact.js';
-const ReactBootstrap = require("react-bootstrap");
-
-var Button = ReactBootstrap.Button;
-var Modal = ReactBootstrap.Modal;
+import { Row } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal'
 
 class ModalEdit extends Component {
     constructor(props){
         super(props);
         this.state = {
             errorState: false,
+            user: "Select User",
         }
     }
     
@@ -22,7 +23,7 @@ class ModalEdit extends Component {
         }
         let currentVm = {
             name: this.props.selectedVm.name,
-            leasee: this.props.selectedVm.leasee,
+            leaseeId: this.props.selectedVm.leaseeId,
             status: this.props.selectedVm.status,
             notes: this.props.selectedVm.notes,
         }
@@ -36,10 +37,9 @@ class ModalEdit extends Component {
     }
 
     changeInputName(value){
-        this.props.changeSelectedVM(
-            {
+        this.props.changeSelectedVM( {
                 name: value,
-                leasee: this.props.selectedVm.leasee,
+                leaseeId: this.props.selectedVm.leaseeId,
                 status: this.props.selectedVm.status,
                 notes: this.props.selectedVm.notes,
             }
@@ -47,10 +47,13 @@ class ModalEdit extends Component {
     }
 
     changeInputLeasee(value){
-        this.props.changeSelectedVM(
-            {
+        console.log(value);
+        this.setState({
+            user: value,
+        });
+        this.props.changeSelectedVM( {
                 name: this.props.selectedVm.name,
-                leasee: value,
+                leaseeId: this.props.getUserByName(value).id,
                 status: this.props.selectedVm.status,
                 notes: this.props.selectedVm.notes,
             }
@@ -58,10 +61,9 @@ class ModalEdit extends Component {
     }
     
     changeInputStatus(value){
-        this.props.changeSelectedVM(
-            {
+        this.props.changeSelectedVM( {
                 name: this.props.selectedVm.name,
-                leasee: this.props.selectedVm.leasee,
+                leaseeId: this.props.selectedVm.leaseeId,
                 status: value,
                 notes: this.props.selectedVm.notes,
             }
@@ -69,19 +71,15 @@ class ModalEdit extends Component {
     }
     
     changeInputNotes(value){
-        this.props.changeSelectedVM(
-            {
+        this.props.changeSelectedVM( {
                 name: this.props.selectedVm.name,
-                leasee: this.props.selectedVm.leasee,
+                leaseeId: this.props.selectedVm.leaseeId,
                 status: this.props.selectedVm.status,
                 notes: value,
             }
         );
     }
 
-
-
-//name, leasee, status, notes
     render() {
         return (
             <div>
@@ -90,41 +88,52 @@ class ModalEdit extends Component {
                         <Modal.Title id="modalTitle">Edit VM</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <form>
-                        <div className = "form-group row">
-                            <label form = "inputName" className = "col-sm-2 col-form-label">Name</label>
-                            <div className = "col-sm-10">
-                                <input type="text" className = "form-control" id="inputName" placeholder="Type Name Here"               
+                        <Form>
+                        <Form.Group as={Row} controlId="inputName">
+                            <Form.Label column sm = "2">
+                                Name 
+                            </Form.Label>
+                            <Col sm ="10">
+                                <Form.Control type="text" placeholder="Type Name Here"        
                                     value = {this.props.selectedVm.name}
                                     onChange={(e)=> this.changeInputName(e.target.value)}/>
-                            </div>
+                            </Col>
                             {this.errorMessage()}
-                        </div>
-                        <div className = "form-group row">
-                            <label form = "Leasee" className = "col-sm-2 col-form-label">Leasee</label>
-                            <div className = "col-sm-10">
-                                <input type="text" className = "form-control" id="Leasee" placeholder="Choose leasee"
-                                 value = {this.props.selectedVm.leasee}
-                                 onChange={(e)=> this.changeInputLeasee(e.target.value)}/>
-                            </div>
-                        </div>
-                        <div className = "form-group row">
-                            <label form = "Status" className = "col-sm-2 col-form-label">Status</label>
-                            <div className = "col-sm-10">
-                                <input type="text" className = "form-control" id="Status" placeholder="Choose Status"
-                                 value = {this.props.selectedVm.status}
-                                 onChange={(e)=> this.changeInputStatus(e.target.value)}/>
-                            </div>
-                        </div>
-                        <div className = "form-group row">
-                            <label form = "Notes" className = "col-sm-2 col-form-label">Notes</label>
-                            <div className = "col-sm-10">
-                                <input type="text" className = "form-control" id="Notes" placeholder="Type Notes Here"
+                        </Form.Group>
+                        <Form.Group as={Row} controlId="Leasee">
+                            <Form.Label column sm = "2">
+                                Leasee 
+                            </Form.Label>
+                            <Col sm ="10">
+                                <Form.Control as="select"
+                                    value = {this.state.user}
+                                    onChange={(e)=> this.changeInputLeasee(e.target.value)}>
+                                    {this.props.users.map((user) => <option key = {user.id} id  = {user.id} value = {user.first + ' ' + user.last}> {user.first + ' ' + user.last} </option>)}
+                                </Form.Control>
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row} controlId="Status">
+                            <Form.Label column sm = "2">
+                                Status 
+                            </Form.Label>
+                            <Col sm ="10">
+                                <Form.Control as="select" value = {this.props.selectedVm.status} onChange={(e)=> this.changeInputStatus(e.target.value)}>
+                                    <option>Available</option>
+                                    <option>Busy</option>
+                                </Form.Control>
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row} controlId =  "Notes">
+                            <Form.Label column sm = "2">
+                                Notes
+                            </Form.Label>
+                            <Col sm ="10">
+                                <Form.Control type="text" placeholder="Type Notes Here"
                                  value = {this.props.selectedVm.notes}
                                  onChange={(e)=> this.changeInputNotes(e.target.value)}/>
-                            </div>
-                        </div>
-                        </form>
+                            </Col>
+                        </Form.Group>
+                        </Form>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={() => this.editVm()} bsstyle="primary" id="editButton">Edit VM</Button>
