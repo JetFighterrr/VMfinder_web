@@ -145,7 +145,7 @@ render() {
     return (
       <div  className = "table-responsive">
         <Navbar>
-          <Navbar.Brand href="#home"><strong>VM Finder</strong></Navbar.Brand>
+          <Navbar.Brand><strong>VM Finder</strong></Navbar.Brand>
           <Nav className="mr-auto"/>
           <ButtonGroupCustom onlyNewRow = { this.state.rowSelectedId < 0 } addModal = {this.handleChange}/>
         </Navbar>
