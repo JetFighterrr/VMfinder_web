@@ -58,7 +58,7 @@ class ModalNew extends Component {
 
     render() {
         return (
-            <div>
+
                 <Modal show = {this.props.showHere} onHide = {() => this.props.operateModal()}>
                     <Modal.Header closeButton>
                         <Modal.Title id="modalNewTitle"> Create New Vm </Modal.Title>
@@ -117,7 +117,7 @@ class ModalNew extends Component {
                         <Button onClick={() => this.putNewVm()} bsstyle="primary" id="addButton"> Create </Button>
                     </Modal.Footer>
                 </Modal>
-            </div>
+
         );
     }
 }

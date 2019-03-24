@@ -47,7 +47,6 @@ class ModalEdit extends Component {
     }
 
     changeInputLeasee(value){
-        console.log(value);
         this.setState({
             user: value,
         });
@@ -82,7 +81,6 @@ class ModalEdit extends Component {
 
     render() {
         return (
-            <div>
                 <Modal show = {this.props.showHere} onHide = {() => this.props.operateModal()}>
                     <Modal.Header closeButton>
                         <Modal.Title id="modalTitle">Edit VM</Modal.Title>
@@ -139,7 +137,6 @@ class ModalEdit extends Component {
                         <Button onClick={() => this.editVm()} bsstyle="primary" id="editButton">Edit VM</Button>
                     </Modal.Footer>
                 </Modal>
-            </div>
         );
     }
 }

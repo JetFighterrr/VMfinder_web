@@ -62,46 +62,30 @@ class TableReact extends Component {
   
   changeSelectedVM = (childVm) => { this.setState({selectedVm: childVm}); }
   
-  handleChangeNew = () => { this.setState({showModalNew: !this.state.showModalNew}); }
+  handleChangeNew = () => { this.setState({showModalNew: !this.state.showModalNew}); };
   
-  handleChangeEdit = () => { this.setState({showModalEdit: !this.state.showModalEdit}); }
+  handleChangeEdit = () => { this.setState({showModalEdit: !this.state.showModalEdit}); };
   
-  handleChangeDelete = () => { this.setState({showModalDelete: !this.state.showModalDelete});  }
+  handleChangeDelete = () => { this.setState({showModalDelete: !this.state.showModalDelete});  };
   
-  pageIncrease = () => {this.setState({ currentPage: this.state.currentPage + 1 });}
+  pageIncrease = () => {this.setState({ currentPage: this.state.currentPage + 1 });};
  
-  pageDecrease = () => {this.setState({ currentPage: this.state.currentPage - 1 });}
+  pageDecrease = () => {this.setState({ currentPage: this.state.currentPage - 1 });};
 
-  updateCurrentPage = () => { 
-    console.log(this.props.maxNumber);
-    console.log(this.state.currentPage);
-    if ( this.state.currentPage > Math.ceil((this.props.maxNumber - 1)/10) ) this.pageDecrease(); 
-  }
+  updateCurrentPage = () => { if ( this.state.currentPage > Math.ceil((this.props.maxNumber - 1)/10) ) this.pageDecrease(); };
 
-  
   rowIsSelected(id){
-    if ( this.state.rowSelectedId > -1  ) {
       if ( this.state.rowSelectedId === id + (this.state.currentPage - 1) * 10 ) {
         this.setState({
-         // rowSelected: false,
           rowSelectedId: -1,
           selectedVm: this.returnEmptyVm() ,
         });
+        return;
       }    
-      else {
-        this.setState({
+      this.setState({
           rowSelectedId: id + (this.state.currentPage - 1) * 10,
           selectedVm: this.props.Vms[id + (this.state.currentPage - 1) * 10],
-        });
-      }
-    }
-    else{
-      this.setState({
-        rowSelectedId: id + (this.state.currentPage - 1) * 10,
-        //rowSelected: true,
-        selectedVm: this.props.Vms[id + (this.state.currentPage - 1) * 10],
       });
-    }
   }
 
   returnEmptyVm = () => { return {
@@ -109,16 +93,16 @@ class TableReact extends Component {
     leaseeId:'',
     status:'',
     notes:'',
-  }}
+  }};
 
-  getUserById = (userId) =>  { return  this.props.users.find( (user) => user.id === userId ) }
+  getUserById = (userId) =>  { return  this.props.users.find( (user) => user.id === userId ) };
 
-  getUserByName = (name) =>  { return  this.props.users.find( (user) => ( user.first + ' ' + user.last) === name ) }
+  getUserByName = (name) =>  { return  this.props.users.find( (user) => ( user.first + ' ' + user.last) === name ) };
 
   renderUser = (userId) => {
     let user = this.getUserById(userId);
     return user.first + ' ' + user.last;
-  }
+  };
   
   getClassName(num){
     if (this.state.rowSelectedId === num + (this.state.currentPage - 1) * 10) {
@@ -135,7 +119,6 @@ class TableReact extends Component {
   pageNavigation(){
     const maxPages = Math.max(1, Math.min(Math.ceil(this.props.maxNumber / 10) , 10));
     const pages = [];
-    console.log(maxPages);
     for(let i = 0; i < maxPages; i++) { pages[i] = (i + 1); }
     return(
       
@@ -160,7 +143,7 @@ class TableReact extends Component {
   
 render() {
     return (
-      <div  className = "table-responsive">
+      <div>
         <Navbar>
           <Navbar.Brand><strong>VM Finder</strong></Navbar.Brand>
           <Nav className="mr-auto"/>

@@ -13,7 +13,6 @@ class ModalDelete extends Component {
 
     render() {
         return (
-            <div>
                 <Modal show = {this.props.showHere} onHide = {() => this.props.operateModal()}>
                     <Modal.Header closeButton>
                         <Modal.Title id="modalTitle">Delete</Modal.Title>
@@ -27,7 +26,6 @@ class ModalDelete extends Component {
                         <Button onClick={() => this.deleteVmButton()} bsstyle="primary" id="addButton">Delete</Button>
                     </Modal.Footer>
                 </Modal>
-            </div>
         );
     }
 }

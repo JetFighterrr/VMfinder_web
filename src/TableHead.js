@@ -6,10 +6,10 @@ class TableHead extends Component {
    render() {
     return (
       <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Leasee</th>
-            <th scope="col">Status</th>
-            <th scope="col">Notes</th>
+            <th>Name</th>
+            <th>Leasee</th>
+            <th>Status</th>
+            <th>Notes</th>
       </tr>
      );
     }
