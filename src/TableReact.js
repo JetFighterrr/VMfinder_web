@@ -7,6 +7,9 @@ import {ModalNew} from './ModalNew.js';
 import {ModalEdit} from './ModalEdit.js';
 import {ModalDelete} from './ModalDelete.js';
 import {ButtonGroupCustom} from './ButtonGroupCustom.js';
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
@@ -121,23 +124,30 @@ class TableReact extends Component {
     const pages = [];
     for(let i = 0; i < maxPages; i++) { pages[i] = (i + 1); }
     return(
-      
-      <ButtonToolbar className="mb-3" aria-label="Toolbar with Button groups">
-      <InputGroup>
-             <Form.Label column sm = "3">
-                   Search
-             </Form.Label>
-        <Form.Control type="text" 
-            value = {this.props.searchField}
-            onChange={(e)=> this.updateSearchField(e.target.value)}/>
-      </InputGroup>
-      <Nav className="mr-auto"/>
-      <ButtonGroup>
-        <Button variant="outline-primary" onClick ={() => this.pageDecrease()} disabled = {this.state.currentPage <= 1}>Previous</Button>
-        {pages.map( (num) => <Button variant={ num === this.state.currentPage ? "primary" : "outline-primary"} onClick = {() => {this.setState({currentPage:num})} }  disabled = {num === this.state.currentPage }>{num}</Button> ) }
-        <Button variant="outline-primary" onClick ={() => this.pageIncrease()} disabled = { this.state.currentPage * 10 >= this.props.maxNumber}>Next</Button>
-      </ButtonGroup>
-    </ButtonToolbar>
+      <Container>
+        <Row>
+          <Col md = {1}>
+                   <Form.Label >
+                         Search
+                   </Form.Label>
+          </Col>
+          <Col md = {4}>
+              <Form.Control type="text"
+                  value = {this.props.searchField}
+                  onChange={(e)=> this.updateSearchField(e.target.value)}/>
+          </Col>
+          <Col md = {true}/>
+          <Col md = {5}>
+            <ButtonToolbar  aria-label="Toolbar with Button groups">
+              <ButtonGroup>
+                <Button variant="outline-primary" onClick ={() => this.pageDecrease()} disabled = {this.state.currentPage <= 1}>Previous</Button>
+                {pages.map( (num) => <Button variant={ num === this.state.currentPage ? "primary" : "outline-primary"} onClick = {() => {this.setState({currentPage:num})} }  disabled = {num === this.state.currentPage }>{num}</Button> ) }
+                <Button variant="outline-primary" onClick ={() => this.pageIncrease()} disabled = { this.state.currentPage * 10 >= this.props.maxNumber}>Next</Button>
+              </ButtonGroup>
+            </ButtonToolbar>
+          </Col>
+        </Row>
+      </Container>
     );
   }
   
